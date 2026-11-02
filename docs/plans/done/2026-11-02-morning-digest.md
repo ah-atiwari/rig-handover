@@ -1,6 +1,6 @@
 ---
 plan: morning-digest
-status: ready
+status: done
 owner: rook
 opened: 2026-10-29
 ---
@@ -77,3 +77,23 @@ page again with `LANE_MARKER` unset (the banner reads "no marker set") and uploa
 link. Move this plan to `docs/plans/done/` with its issue list.
 
 Done when: the preview link no longer shows the lane marker.
+
+## Issues
+
+| Section | Issue |
+|---|---|
+| 1 | [Run log reader](https://github.com/ah-atiwari/rig-handover/issues/1) |
+| 2a | [Digest HTML page](https://github.com/ah-atiwari/rig-handover/issues/2) |
+| 2b | [Digest JSON endpoint](https://github.com/ah-atiwari/rig-handover/issues/3) |
+| 2c | [Status-board digest links](https://github.com/ah-atiwari/rig-handover/issues/4) |
+| 2d | [Digest route tests](https://github.com/ah-atiwari/rig-handover/issues/5) |
+| 3 | [Public preview for review](https://github.com/ah-atiwari/rig-handover/issues/6) |
+| 4 | [Clean preview after review](https://github.com/ah-atiwari/rig-handover/issues/7) |
+
+The course confirmed the reviewer had seen the marked preview on 2026-11-02.
+After separate approval, the clean copy replaced the same public URL:
+https://ah-atiwari.github.io/rig-handover/.
+Verified HTTP 200, the sample digest heading, and "no marker set".
+
+- [Initial publication](https://github.com/ah-atiwari/rig-handover/actions/runs/41423627204)
+- [Clean replacement](https://github.com/ah-atiwari/rig-handover/actions/runs/41434164087)
