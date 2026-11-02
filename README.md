@@ -24,3 +24,21 @@ Run `pnpm test` and `pnpm typecheck` to validate changes.
 Keep `.env` and saved preview HTML out of git. Public previews carry the lane
 marker until review arrives; after review and approval, replace the same URL
 with a copy generated with `LANE_MARKER` unset (ADR 0003).
+
+## Review preview
+
+`pnpm preview:save` starts a temporary loopback HTTP server, fetches the sample
+digest, saves `dist/preview/index.html`, and stops the server. It reads
+`LANE_MARKER` from the process environment only, not `.env`. Set the marker
+explicitly for the initial review copy. Only after review and separate approval,
+leave it unset or empty to replace the same output with a clean copy.
+
+The manual `Digest preview` workflow runs tests and type-checking, then generates
+and deploys only `dist/preview` from `main`. HTML and `.env` stay out of git.
+After approval, select **Settings > Pages > Source > GitHub Actions**.
+The expected URL is https://ah-atiwari.github.io/rig-handover/.
+
+Obtain separate approval before the first publication. Dispatch with the course
+marker in `lane_marker`, then send the URL and plan issues to the reviewer.
+Wait for review before requesting approval to dispatch with an empty marker.
+Do not close the cleanup issue until the clean page is verified at the same URL.
