@@ -1,5 +1,7 @@
 import { readdirSync } from 'node:fs';
 import type { RigConfig } from './config.js';
+import { readNight } from './digest/read.js';
+import type { DigestNight } from './digest/types.js';
 import { lastBeat, type Beat } from './heartbeat.js';
 
 export type Status = {
@@ -7,6 +9,8 @@ export type Status = {
   installed: string;
   lastBeat: Beat | null;
   nights: string[];
+  // Null means the listed night was unavailable when read, not an empty log.
+  nightCounts: Record<string, DigestNight['counts'] | null>;
 };
 
 // Nights on disk = runs/<YYYY-MM-DD>.jsonl, newest first.
@@ -23,10 +27,18 @@ export function nightsOnDisk(runsDir: string): string[] {
 }
 
 export function readStatus(config: RigConfig): Status {
+  const nights = nightsOnDisk(config.runsDir);
+  const nightCounts: Status['nightCounts'] = {};
+  for (const night of nights) {
+    const digest = readNight(config.runsDir, night);
+    nightCounts[night] = digest === null ? null : digest.counts;
+  }
+
   return {
     adapter: config.adapter,
     installed: config.installed,
     lastBeat: lastBeat(),
-    nights: nightsOnDisk(config.runsDir),
+    nights,
+    nightCounts,
   };
 }

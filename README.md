@@ -1,7 +1,7 @@
 # rig
 
 Keeps a lane's lights on while nobody is in it: a heartbeat every minute, a status board, and
-(next) a morning digest of what ran overnight.
+a morning digest of what ran overnight.
 
 ```sh
 cp .env.example .env   # set LANE_MARKER
@@ -10,3 +10,17 @@ pnpm dev               # http://localhost:8787
 ```
 
 Working on it with an agent: start at [AGENTS.md](AGENTS.md).
+
+## Morning digest
+
+- `/digest/2026-10-28` displays the sample night's jobs in job-name order.
+- `/api/digest/2026-10-28` returns `{ rows, badLines, counts }` with the same rows.
+- The status board links each night with its valid log-event ok / retry / fail counts.
+- Missing or invalid nights return 404; empty nights display "nothing ran".
+- Malformed log lines are counted without preventing other jobs from rendering.
+- Missing owners display as `—`; timestamps retain their original offsets.
+
+Run `pnpm test` and `pnpm typecheck` to validate changes.
+Keep `.env` and saved preview HTML out of git. Public previews carry the lane
+marker until review arrives; after review and approval, replace the same URL
+with a copy generated with `LANE_MARKER` unset (ADR 0003).
